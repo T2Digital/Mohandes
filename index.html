@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="مركز المهندس لصيانة وتركيب التكييف والتبريد بمعايير عالمية. اطلب خدمتك الآن!">
+    <title>مركز المهندس لصيانة التكييف والتبريد</title>
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e1e2f, #2a2a5b, #1a1a3e);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        /* Particles Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            top: 0;
+            left: 0;
+        }
+
+        /* Header */
+        header {
+            background: rgba(26, 26, 26, 0.95);
+            padding: 8px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 234, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: nowrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+            flex-direction: row;
+            justify-content: flex-start; /* Ensure logo is on the left in RTL */
+        }
+
+        .logo img {
+            width: 45px;
+            filter: drop-shadow(0 0 10px #00eaff);
+            order: 1; /* Logo first (left in RTL) */
+        }
+
+        .logo h1 {
+            font-size: 26px;
+            font-family: 'Almarai', sans-serif;
+            color: #00eaff;
+            text-shadow: 0 0 15px #00eaff, 0 0 30px #ff00cc;
+            order: 2; /* Name second (right in RTL) */
+        }
+
+        nav {
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            flex-grow: 1;
+        }
+
+        nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            padding: 5px 0;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 6px 18px;
+            border-radius: 20px;
+            background: linear-gradient(45deg, #00eaff, #ff00cc);
+            background-size: 200%;
+            transition: background-position 0.3s, transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 0 10px rgba(0, 234, 255, 0.5);
+            white-space: nowrap;
+        }
+
+        nav ul li a:hover {
+            background-position: right;
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px #00eaff;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: url('https://via.placeholder.com/1920x1080?text=Hero+Image') no-repeat center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            margin-top: 65px;
+            z-index: 1;
+        }
+
+        .hero-overlay {
+            background: #2a2a2a;
+            padding: 35px;
+            border-radius: 20px;
+            max-width: 650px;
+            box-shadow: 0 0 30px rgba(0, 234, 255, 0.5);
+            backdrop-filter: blur(8px);
+            z-index: 2;
+            transition: transform 0.3s;
+        }
+
+        .hero-overlay:hover {
+            transform: scale(1.05);
+        }
+
+        .hero-overlay h2 {
+            font-size: 34px;
+            color: #00eaff;
+            text-shadow: 0 0 15px #00eaff;
+            margin-bottom: 20px;
+        }
+
+        .hero-overlay p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .hero-overlay button {
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #00eaff, #ff00cc);
+            border: none;
+            border-radius: 12px;
+            color: #1a1a1a;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .hero-overlay button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px #00eaff;
+        }
+
+        /* Main Content */
+        main {
+            padding: 30px 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        section {
+            max-width: 1400px;
+            margin: 0 auto 60px;
+            padding: 40px;
+            background: #2a2a2a;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0, 234, 255, 0.5);
+            backdrop-filter: blur(8px);
+            transition: transform 0.3s;
+            z-index: 2;
+            position: relative;
+        }
+
+        section:hover {
+            transform: scale(1.05);
+        }
+
+        h2 {
+            font-family: 'Almarai', sans-serif;
+            font-size: 32px;
+            color: #00eaff;
+            text-align: center;
+            margin-bottom: 25px;
+            text-shadow: 0 0 15px #00eaff;
+        }
+
+        /* Service Form */
+        #service-form form {
+            display: grid;
+            gap: 15px;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #ccc;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background: #3a3a3a;
+            color: #fff;
+            font-size: 14px;
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            box-shadow: 0 0 20px #00eaff;
+            transform: scale(1.02);
+        }
+
+        #location-btn {
+            padding: 12px;
+            background: linear-gradient(45deg, #00eaff, #ff00cc);
+            border: none;
+            border-radius: 12px;
+            color: #1a1a1a;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        #location-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px #00eaff;
+        }
+
+        button {
+            padding: 12px;
+            background: linear-gradient(45deg, #00eaff, #ff00cc);
+            border: none;
+            border-radius: 12px;
+            color: #1a1a1a;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px #00eaff;
+        }
+
+        #total-price {
+            font-size: 18px;
+            color: #00eaff;
+            text-align: center;
+            margin-top: 15px;
+            text-shadow: 0 0 10px #00eaff;
+        }
+
+        /* Gallery Slider */
+        .swiper-container {
+            max-width: 100%;
+            padding: 30px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 400px !important; /* Ensure height for desktop */
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 234, 255, 0.4);
+            transition: transform 0.3s;
+        }
+
+        .swiper-slide img:hover {
+            transform: scale(1.08);
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #00eaff;
+            filter: drop-shadow(0 0 10px #00eaff);
+            transform: scale(1.2);
+            z-index: 3;
+        }
+
+        .swiper-pagination-bullet {
+            background: #00eaff;
+            opacity: 0.5;
+            width: 10px;
+            height: 10px;
+        }
+
+        .swiper-pagination-bullet-active {
+            opacity: 1;
+            background: #ff00cc;
+        }
+
+        /* Tips */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tip-card {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0, 234, 255, 0.5);
+            backdrop-filter: blur(8px);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .tip-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(0, 234, 255, 0.6);
+        }
+
+        .tip-card p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: #2a2a2a;
+            padding: 40px 15px;
+            text-align: center;
+            box-shadow: 0 -4px 15px rgba(0, 234, 255, 0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+        }
+
+        footer p {
+            font-size: 16px;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        footer .social a {
+            color: #00eaff;
+            margin: 0 15px;
+            font-size: 26px;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        footer .social a:hover {
+            color: #ff00cc;
+            transform: scale(1.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 5px 10px;
+            }
+
+            .logo h1 {
+                font-size: 22px;
+            }
+
+            .logo img {
+                width: 40px;
+            }
+
+            nav ul {
+                gap: 10px;
+            }
+
+            nav ul li a {
+                font-size: 12px;
+                padding: 5px 15px;
+            }
+
+            .hero-overlay {
+                padding: 20px;
+            }
+
+            .hero-overlay h2 {
+                font-size: 28px;
+            }
+
+            .hero-overlay p {
+                font-size: 14px;
+            }
+
+            .hero-overlay button {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+
+            section {
+                padding: 25px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+
+            #service-form form {
+                gap: 12px;
+                max-width: 100%;
+            }
+
+            .form-group label {
+                font-size: 14px;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 10px;
+                font-size: 12px;
+            }
+
+            #location-btn {
+                padding: 10px;
+                font-size: 12px;
+            }
+
+            button {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            #total-price {
+                font-size: 16px;
+            }
+
+            .swiper-slide img {
+                height: 350px !important; /* Ensure height for mobile */
+            }
+
+            .tip-card p {
+                font-size: 14px;
+            }
+
+            footer p {
+                font-size: 14px;
+            }
+
+            footer .social a {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-container {
+                flex-direction: column;
+                gap: 5px;
+                align-items: flex-start;
+            }
+
+            .logo {
+                justify-content: flex-start; /* Ensure logo on left in RTL */
+            }
+
+            nav {
+                width: 100%;
+            }
+
+            nav ul {
+                justify-content: flex-start;
+            }
+
+            .hero-overlay {
+                padding: 15px;
+            }
+
+            .hero-overlay h2 {
+                font-size: 24px;
+            }
+
+            section {
+                padding: 20px;
+            }
+
+            .swiper-slide img {
+                height: 350px !important; /* Ensure height for very small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="https://via.placeholder.com/70?text=Logo" alt="Logo">
+                <h1>المهندس</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#service-form">طلب خدمة</a></li>
+                    <li><a href="#about">من نحن</a></li>
+                    <li><a href="#gallery">معرض الصور</a></li>
+                    <li><a href="#tips">نصائح</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-overlay" data-aos="zoom-in">
+            <h2>مركز المهندس: التميز في التكييف</h2>
+            <p>نقدم خدمات صيانة وتركيب بمعايير عالمية، مع فريق محترف يضمن راحتك وكفاءة أجهزتك.</p>
+            <button onclick="window.location.href='#service-form'">اطلب خدمتك الآن</button>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Service Form -->
+        <section id="service-form" data-aos="fade-up">
+            <h2>طلب خدمة</h2>
+            <form id="request-form">
+                <div class="form-group">
+                    <label for="name">الاسم</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">رقم الهاتف</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="service-type">الخدمة</label>
+                    <select id="service-type" name="service-type" onchange="updateTotalPrice()" required>
+                        <option value="" disabled selected>اختر الخدمة</option>
+                        <option value="maintenance|2000">صيانة تكييف (2000 جنيه)</option>
+                        <option value="installation|5000">تركيب تكييف (5000 جنيه)</option>
+                        <option value="inspection|1500">فحص وتنظيف (1500 جنيه)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="units">عدد الوحدات</label>
+                    <input type="number" id="units" name="units" min="1" value="1" onchange="updateTotalPrice()" required>
+                </div>
+                <div class="form-group">
+                    <label for="device-type">نوع الجهاز</label>
+                    <input type="text" id="device-type" name="device-type" placeholder="مثال: تكييف سبليت، شباك" required>
+                </div>
+                <div class="form-group">
+                    <label for="issue">وصف العطل</label>
+                    <textarea id="issue" name="issue" rows="4" placeholder="اكتب وصف العطل هنا..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>مشاركة الموقع</label>
+                    <button type="button" id="location-btn">مشاركة موقعي</button>
+                    <input type="hidden" id="location" name="location">
+                </div>
+                <div id="total-price">السعر الإجمالي: 0 جنيه</div>
+                <button type="submit">إرسال الطلب</button>
+            </form>
+        </section>
+
+        <!-- Gallery Slider -->
+        <section id="gallery" data-aos="fade-up" data-aos-delay="200">
+            <h2>معرض الصور</h2>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="https://via.placeholder.com/600x400?text=صيانة+متقدمة" alt="صيانة 1">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://via.placeholder.com/600x400?text=تركيب+احترافي" alt="تركيب 1">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://via.placeholder.com/600x400?text=فحص+دقيق" alt="صيانة 2">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://via.placeholder.com/600x400?text=تكنولوجيا+حديثة" alt="تركيب 2">
+                    </div>
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+
+        <!-- Tips Section -->
+        <section id="tips" data-aos="fade-up" data-aos-delay="300">
+            <h2>نصائح للحفاظ على التكييف</h2>
+            <div class="tips-grid">
+                <div class="tip-card"><p>نظّف الفلاتر شهريًا للحفاظ على كفاءة التبريد.</p></div>
+                <div class="tip-card"><p>تأكد من فحص غاز التبريد كل 6 أشهر.</p></div>
+                <div class="tip-card"><p>حافظ على الوحدة الخارجية بعيدة عن الأتربة.</p></div>
+                <div class="tip-card"><p>اضبط الحرارة على 24-26 مئوية لتوفير الطاقة.</p></div>
+                <div class="tip-card"><p>جدول صيانة سنوية مع مركز المهندس.</p></div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" data-aos="fade-up" data-aos-delay="100">
+            <h2>من نحن</h2>
+            <p style="font-size: 18px; line-height: 1.8; text-align: center; max-width: 900px; margin: 0 auto;">
+                مركز المهندس هو الخيار الأول لخدمات التكييف والتبريد. نحن نجمع بين الخبرة العالمية، التكنولوجيا المتقدمة، والالتزام برضا العملاء.
+            </p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer data-aos="fade-up">
+        <p>جميع الحقوق محفوظة © 2025 مركز المهندس</p>
+        <div class="social">
+            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://wa.me/+1234567890" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <p>للتواصل: info@engineer-ac.com | 1234-567-890</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        // Initialize Particles.js with gear-like shapes
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 30, density: { enable: true, value_area: 1000 } },
+                color: { value: ['#00eaff', '#ff00cc'] },
+                shape: { type: 'image', image: { src: 'https://img.icons8.com/ios-filled/50/00eaff/gear.png', width: 50, height: 50 } },
+                opacity: { value: 0.4, random: true },
+                size: { value: 12, random: true },
+                line_linked: { enable: false },
+                move: { enable: true, speed: 1.5, direction: 'none', random: true }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: { onhover: { enable: false }, onclick: { enable: true, mode: 'push' } },
+                modes: { push: { particles_nb: 2 } }
+            },
+            retina_detect: true
+        });
+
+        // Initialize AOS
+        AOS.init({ duration: 800, once: true });
+
+        // Initialize Swiper
+        const swiper = new Swiper('.swiper-container', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                }
+            }
+        });
+
+        // Form Submission to WhatsApp
+        document.getElementById('request-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const serviceType = document.getElementById('service-type').value.split('|')[0];
+            const units = document.getElementById('units').value;
+            const deviceType = document.getElementById('device-type').value;
+            const issue = document.getElementById('issue').value;
+            const location = document.getElementById('location').value || 'غير متوفر';
+            const totalPrice = parseInt(document.getElementById('units').value) * parseInt(document.getElementById('service-type').value.split('|')[1]);
+
+            const message = `الاسم: ${name}%0Aرقم الهاتف: ${phone}%0Aالخدمة: ${serviceType === 'maintenance' ? 'صيانة' : serviceType === 'installation' ? 'تركيب' : 'فحص وتنظيف'}%0Aعدد الوحدات: ${units}%0Aنوع الجهاز: ${deviceType}%0Aوصف العطل: ${issue}%0Aالموقع: ${location}%0Aالسعر الإجمالي: ${totalPrice} جنيه`;
+            const whatsappUrl = `https://wa.me/+1234567890?text=${message}`;
+
+            window.open(whatsappUrl, '_blank');
+            
+            // Show Confirmation
+            alert('تم إرسال طلبك بنجاح! سنتواصل معك قريبًا.');
+            this.reset();
+            document.getElementById('total-price').innerText = 'السعر الإجمالي: 0 جنيه';
+        });
+
+        // Location Sharing
+        document.getElementById('location-btn').addEventListener('click', function() {
+            if (!navigator.geolocation) {
+                alert('متصفحك لا يدعم خاصية تحديد الموقع. يرجى استخدام متصفح آخر أو إدخال الموقع يدويًا.');
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    const location = `https://www.google.com/maps?q=${latitude},${longitude}`;
+                    document.getElementById('location').value = location;
+                    alert('تم مشاركة موقعك بنجاح!');
+                },
+                (error) => {
+                    let errorMessage = 'تعذر الحصول على الموقع. ';
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            errorMessage += 'يرجى السماح بالوصول إلى الموقع من إعدادات المتصفح.';
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            errorMessage += 'معلومات الموقع غير متاحة. حاول مرة أخرى لاحقًا.';
+                            break;
+                        case error.TIMEOUT:
+                            errorMessage += 'انتهت مهلة الطلب. حاول مرة أخرى.';
+                            break;
+                        default:
+                            errorMessage += 'حدث خطأ غير معروف.';
+                    }
+                    alert(errorMessage);
+                },
+                { timeout: 10000, enableHighAccuracy: true }
+            );
+        });
+
+        // Update Total Price
+        function updateTotalPrice() {
+            const service = document.getElementById('service-type').value;
+            const units = parseInt(document.getElementById('units').value) || 0;
+            if (service && units > 0) {
+                const price = parseInt(service.split('|')[1]);
+                const total = price * units;
+                document.getElementById('total-price').innerText = `السعر الإجمالي: ${total} جنيه`;
+            } else {
+                document.getElementById('total-price').innerText = 'السعر الإجمالي: 0 جنيه';
+            }
+        }
+    </script>
+</body>
+</html>
