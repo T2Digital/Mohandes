@@ -701,7 +701,7 @@
             const totalPrice = parseInt(document.getElementById('units').value) * parseInt(document.getElementById('service-type').value.split('|')[1]);
 
             const message = `الاسم: ${name}%0Aرقم الهاتف: ${phone}%0Aالخدمة: ${serviceType === 'maintenance' ? 'صيانة' : serviceType === 'installation' ? 'تركيب' : 'فحص وتنظيف'}%0Aعدد الوحدات: ${units}%0Aنوع الجهاز: ${deviceType}%0Aوصف العطل: ${issue}%0Aالموقع: ${location}%0Aالسعر الإجمالي: ${totalPrice} جنيه`;
-            const whatsappUrl = `https://wa.me/+1234567890?text=${message}`;
+            const whatsappUrl = `https://wa.me/+201157813631?text=${message}`;
 
             window.open(whatsappUrl, '_blank');
             alert('تم إرسال طلبك بنجاح!');
