@@ -246,6 +246,31 @@
             text-decoration: underline;
         }
 
+        #maintenance-details {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 234, 255, 0.3);
+            margin-top: 10px;
+            display: none;
+        }
+
+        #maintenance-details p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        #maintenance-details ul {
+            list-style: disc;
+            margin-right: 20px;
+            color: #fff;
+        }
+
+        #maintenance-details ul li {
+            margin-bottom: 8px;
+        }
+
         /* Gallery Slider */
         .swiper-container {
             padding: 20px 0;
@@ -537,29 +562,28 @@
                     <input type="text" id="name" name="name" required aria-required="true">
                 </div>
                 <div class="form-group">
-                    <label for="phone">رقم الهاتف</label>
-                    <input type="tel" id="phone" name="phone" required aria-required="true">
-                </div>
-                <div class="form-group">
                     <label for="service-type">الخدمة</label>
-                    <select id="service-type" name="service-type" onchange="updateTotalPrice()" required aria-required="true">
+                    <select id="service-type" name="service-type" onchange="updateForm()" required aria-required="true">
                         <option value="" disabled selected>اختر الخدمة</option>
-                        <option value="maintenance|2000">صيانة تكييف (2000 جنيه)</option>
-                        <option value="installation|5000">تركيب تكييف (5000 جنيه)</option>
-                        <option value="inspection|1500">فحص وتنظيف (1500 جنيه)</option>
+                        <option value="maintenance|250">خدمة الصيانة (250 جنيه)</option>
+                        <option value="dismantle-install|0">خدمة الفك والتركيب (السعر بعد الفحص)</option>
+                        <option value="buy-used|0">شراء الأجهزة المستعملة (السعر بعد الفحص)</option>
+                        <option value="sell-used|0">بيع الأجهزة المستعملة مع ضمان (السعر بعد الفحص)</option>
+                        <option value="pipe-installation|0">تأسيس مواسير بجودة عالية (السعر بعد الفحص)</option>
                     </select>
                 </div>
+                <div id="maintenance-details">
+                    <p>خدمة الصيانة تشمل التالي:</p>
+                    <ul>
+                        <li>حل مشاكل تسريب المياه</li>
+                        <li>قياس شحنة الفريون</li>
+                        <li>غسيل كيماوي</li>
+                        <li>الكشف على الأعطال</li>
+                    </ul>
+                </div>
                 <div class="form-group">
-                    <label for="units">عدد الوحدات</label>
+                    <label for="units">عدد الأجهزة</label>
                     <input type="number" id="units" name="units" min="1" value="1" onchange="updateTotalPrice()" required aria-required="true">
-                </div>
-                <div class="form-group">
-                    <label for="device-type">نوع الجهاز</label>
-                    <input type="text" id="device-type" name="device-type" placeholder="مثال: تكييف سبليت" required aria-required="true">
-                </div>
-                <div class="form-group">
-                    <label for="issue">وصف العطل</label>
-                    <textarea id="issue" name="issue" rows="4" placeholder="اكتب وصف العطل..." required aria-required="true"></textarea>
                 </div>
                 <div class="form-group location-group">
                     <label>مشاركة الموقع</label>
@@ -660,6 +684,14 @@
             nav.classList.toggle('active');
         });
 
+        // Close Hamburger Menu on Link Click
+        const navLinks = document.querySelectorAll('nav ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+            });
+        });
+
         // Initialize Swiper
         const swiper = new Swiper('.swiper-container', {
             slidesPerView: 1,
@@ -692,16 +724,22 @@
         document.getElementById('request-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
             const serviceType = document.getElementById('service-type').value.split('|')[0];
             const units = document.getElementById('units').value;
-            const deviceType = document.getElementById('device-type').value;
-            const issue = document.getElementById('issue').value;
             const location = document.getElementById('location').value || 'غير متوفر';
-            const totalPrice = parseInt(document.getElementById('units').value) * parseInt(document.getElementById('service-type').value.split('|')[1]);
+            const price = document.getElementById('service-type').value.split('|')[1];
+            const totalPrice = price == 0 ? 'يتم تحديده بعد الفحص' : `${parseInt(units) * parseInt(price)} جنيه`;
 
-            const message = `الاسم: ${name}%0Aرقم الهاتف: ${phone}%0Aالخدمة: ${serviceType === 'maintenance' ? 'صيانة' : serviceType === 'installation' ? 'تركيب' : 'فحص وتنظيف'}%0Aعدد الوحدات: ${units}%0Aنوع الجهاز: ${deviceType}%0Aوصف العطل: ${issue}%0Aالموقع: ${location}%0Aالسعر الإجمالي: ${totalPrice} جنيه`;
-            const whatsappUrl = `https://wa.me/+201157813631?text=${message}`;
+            const serviceName = {
+                'maintenance': 'خدمة الصيانة',
+                'dismantle-install': 'خدمة الفك والتركيب',
+                'buy-used': 'شراء الأجهزة المستعملة',
+                'sell-used': 'بيع الأجهزة المستعملة مع ضمان',
+                'pipe-installation': 'تأسيس مواسير بجودة عالية'
+            }[serviceType];
+
+            const message = `الاسم: ${name}%0Aالخدمة: ${serviceName}%0Aعدد الأجهزة: ${units}%0Aالموقع: ${location}%0Aالسعر الإجمالي: ${totalPrice}`;
+            const whatsappUrl = `https://wa.me/+1234567890?text=${message}`;
 
             window.open(whatsappUrl, '_blank');
             alert('تم إرسال طلبك بنجاح!');
@@ -709,6 +747,7 @@
             document.getElementById('total-price').innerText = 'السعر الإجمالي: 0 جنيه';
             document.getElementById('location-link').style.display = 'none';
             document.getElementById('location-btn').textContent = 'مشاركة موقعي';
+            document.getElementById('maintenance-details').style.display = 'none';
         });
 
         // Location Sharing
@@ -733,14 +772,29 @@
             }
         }
 
-        // Update Total Price
+        // Update Form and Total Price
+        function updateForm() {
+            const service = document.getElementById('service-type').value;
+            const maintenanceDetails = document.getElementById('maintenance-details');
+            if (service.startsWith('maintenance')) {
+                maintenanceDetails.style.display = 'block';
+            } else {
+                maintenanceDetails.style.display = 'none';
+            }
+            updateTotalPrice();
+        }
+
         function updateTotalPrice() {
             const service = document.getElementById('service-type').value;
             const units = parseInt(document.getElementById('units').value) || 0;
             if (service && units > 0) {
                 const price = parseInt(service.split('|')[1]);
-                const total = price * units;
-                document.getElementById('total-price').innerText = `السعر الإجمالي: ${total} جنيه`;
+                if (price > 0) {
+                    const total = price * units;
+                    document.getElementById('total-price').innerText = `السعر الإجمالي: ${total} جنيه`;
+                } else {
+                    document.getElementById('total-price').innerText = 'السعر الإجمالي: يتم تحديده بعد الفحص';
+                }
             } else {
                 document.getElementById('total-price').innerText = 'السعر الإجمالي: 0 جنيه';
             }
